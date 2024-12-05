@@ -8,22 +8,21 @@ import (
 
 var serviceName = "GATE_LNK"
 
-// stopService завершает службу по имени
 func stopService(name string) {
 	stopCmd := exec.Command("taskkill", "/F", "/FI", fmt.Sprintf("SERVICES eq %s", name))
 	stopCmd.CombinedOutput()
-	fmt.Printf("[INFO] Служба %s остановлена.\n", name)
+	fmt.Println("[INFO] Служба связи остановлена.")
 }
 
-// startService запускаем службу
 func startService(name string) {
-	startCmd := exec.Command("cmd", "net", "start", name)
+	startCmd := exec.Command("net", "start", name)
 	startCmd.CombinedOutput()
-	fmt.Printf("[INFO] Служба %s запущена.", name)
+	fmt.Println("[INFO] Служба связи запущена.")
 }
 
 func main() {
 	stopService(serviceName)
+	fmt.Println("Запуск службы через 5 секунд...")
 	time.Sleep(5 * time.Second)
 	startService(serviceName)
 }
